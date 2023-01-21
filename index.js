@@ -38,10 +38,13 @@ app.use(
 const db = require("./app/models");
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://thoriqzs25:${dbConfig.pass}@jwttokendemo.msaptkc.mongodb.net/?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Successfully connect to MongoDB.");
   })

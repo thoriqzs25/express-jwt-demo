@@ -83,6 +83,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# S3cr3ts
+app/config/
+
 # Typescript v1 declaration files
 typings/
 
