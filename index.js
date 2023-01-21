@@ -39,7 +39,7 @@ const db = require("./app/models");
 
 db.mongoose
   .connect(
-    `mongodb+srv://thoriqzs25:${dbConfig.pass}@jwttokendemo.msaptkc.mongodb.net/?retryWrites=true&w=majority`,
+    `mongodb+srv://${dbConfig.user}:${dbConfig.pass}@jwttokendemo.msaptkc.mongodb.net/?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
