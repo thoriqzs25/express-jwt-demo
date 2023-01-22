@@ -71,7 +71,7 @@ exports.credentials = async (req, res) => {
     if (req.session.token) {
       const decoded = jwt.verify(req.session.token, secret.secret);
       userId = decoded.id;
-    }
+    } else res.status(404).send({ message: "Please login" });
     if (userId) {
       User.findById(userId).exec((err, user) => {
         if (err) {
