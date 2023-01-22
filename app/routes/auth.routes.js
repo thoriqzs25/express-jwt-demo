@@ -8,11 +8,13 @@ module.exports = function (app) {
   });
 
   app.post(
-    "/api/auth/signup",
+    "/auth/signup",
     [verification.checkDuplicateUsernameOrEmail],
     authController.signup
   );
 
-  app.post("/api/auth/signin", authController.signin);
-  app.post("/api/auth/signout", authController.signout);
+  app.post("/auth/login", authController.login);
+  app.post("/auth/logout", authController.logout);
+
+  app.get("/auth/credentials", authController.credentials);
 };

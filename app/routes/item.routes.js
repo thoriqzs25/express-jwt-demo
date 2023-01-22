@@ -1,5 +1,5 @@
-const userController = require("../controllers/user.controller");
 const { verification } = require("../middlewares");
+const itemController = require("../controllers/item.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -7,11 +7,7 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/test/all", userController.allAccess);
+  app.get("/item", [verification.verifyToken], itemController.getAll);
 
-  app.get(
-    "/api/test/user",
-    [verification.verifyToken],
-    userController.allAccess
-  );
+  app.post("/item", [verification.verifyToken], itemController.insertItem);
 };

@@ -1,20 +1,19 @@
 const db = require("../models");
 const User = db.user;
+var jwt = require("jsonwebtoken");
+const secretConfig = require("../config/secret.config");
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
-  console.log(req.body, "line 6");
   User.findOne({
     username: req.body.username,
   }).exec((err, user) => {
     if (err) {
-      console.log("line 11", err, "user", user);
       res.status(500).send({ message: err });
       return;
     }
 
     if (user) {
-      console.log("line 17 user", user);
       res.status(400).send({ message: "Failed! Username is already in use!" });
       return;
     }
@@ -46,7 +45,7 @@ verifyToken = (req, res, next) => {
     return res.status(403).send({ message: "No token provided!" });
   }
 
-  jwt.verify(token, secretConf.secret, (err, decoded) => {
+  jwt.verify(token, secretConfig.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized" });
     }

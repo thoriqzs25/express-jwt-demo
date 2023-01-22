@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
-    orders: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-    },
   },
   { timestamps: true }
 );

@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const dbConfig = require("./app/config/db.config");
+const secretConfig = require("./app/config/secret.config");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -15,12 +16,6 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const authRoutes = require("./app/routes/auth.routes");
-const userRoutes = require("./app/routes/user.routes");
-
-authRoutes(app);
-userRoutes(app);
-
 // parse requests of content-type - application/json
 app.use(express.json());
 
@@ -29,11 +24,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
-    name: "bezkoder-session",
-    secret: "COOKIE_SECRET", // should use as secret environment variable
+    name: "jwt-demo-session",
+    secret: secretConfig.cookieSecret,
     httpOnly: true,
   })
 );
+
+const authRoutes = require("./app/routes/auth.routes");
+const itemRoutes = require("./app/routes/item.routes");
+
+authRoutes(app);
+itemRoutes(app);
 
 const db = require("./app/models");
 
@@ -55,8 +56,7 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  console.log("line 51", req.body);
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to shopping cart api demo." });
 });
 
 // set port, listen for requests
